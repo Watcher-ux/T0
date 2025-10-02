@@ -1,0 +1,260 @@
+<div class="container">
+  <header class="header">
+  <h1 class="title"><img src="icons/iconx.png"></h1>
+  </header>
+
+  <style>
+  :root {
+    --bg: #0b0f14;
+    --surface: #0f1520;
+    --elev-1: #121a26;
+    --text: #d8e1ea;
+    --muted: #95a3b3;
+    --brand: #4f8cff;
+    --brand-ink: #0b234a;
+    --ok: #22c55e;
+    --warn: #f59e0b;
+    --focus: #8ab4ff;
+    --border: #202a39;
+    --radius: 8px;
+    --pad: 8px;      /* tighter padding */
+    --gap: 8px;      /* tighter gaps */
+    --font: 12px;    /* smaller base font */
+    --font-small: 11px;
+    --control-pad: 6px 8px;  /* compact control padding */
+    --btn-pad: 8px 10px;     /* compact button padding */
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial, sans-serif;
+    color: var(--text);
+    background: linear-gradient(180deg, #0b0f14 0%, #0e1320 100%);
+    font-size: var(--font);
+  }
+
+
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .title {
+    font-size: 14px;
+    margin: 0;
+    letter-spacing: 0.2px;
+  }
+
+  .controls {
+    display: grid;
+    gap: var(--gap);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: var(--pad);
+    border-radius: var(--radius);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+  }
+
+  /* Language search + dropdown */
+  .lang-picker { display: grid; gap: 4px; }
+  .lang-row { display: grid; grid-template-columns: 1fr; gap: 6px; }
+
+  .input, .select {
+    appearance: none;
+    background: var(--elev-1);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: var(--control-pad);
+    font-size: var(--font);
+    line-height: 1.2;
+    width: 100%;
+    min-width: 0;
+  }
+  .input::placeholder { color: var(--muted); font-size: var(--font-small); }
+  .input:focus-visible, .select:focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
+    box-shadow: 0 0 0 3px rgba(138,180,255,0.12);
+  }
+  .select {
+    background-image:
+      linear-gradient(45deg, transparent 50%, #8aa4ff 50%),
+      linear-gradient(135deg, #8aa4ff 50%, transparent 50%),
+      linear-gradient(to right, transparent, transparent);
+    background-position:
+      calc(100% - 18px) ,
+      calc(100% - 12px) ,
+      calc(100% - 2.2em) 50%;
+    background-size: 6px 6px, 6px 6px, 1px 60%;
+    background-repeat: no-repeat;
+    padding-right: 28px; /* smaller icon spacing */
+  }
+  /* Compact actions */
+  .actions {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 6px;
+    align-items: stretch;
+  }
+  .btn {
+    appearance: none;
+    border: 1px solid transparent;
+    border-radius: var(--radius);
+    padding: var(--btn-pad);
+    font-size: var(--font);
+    line-height: 1.1;
+    cursor: pointer;
+    transition: transform .02s ease, background .2s ease, box-shadow .2s ease, border-color .2s ease;
+    width: 100%;
+    min-width: 0;
+  }
+  .btn:active { transform: translateY(1px); }
+  .btn:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+  .btn-primary {
+    background: linear-gradient(180deg, #5c94ff 0%, #4f8cff 100%);
+    color: #0b1220;
+    box-shadow: 0 4px 10px rgba(66,77,98,0.3);
+  }
+  .btn-primary:hover { filter: brightness(1.04); }
+  .btn-tonal { background: #1a2332; color: var(--text); border-color: #2a3550; }
+  .btn-tonal:hover { background: #202c44; }
+  .btn-outline { background: transparent; color: var(--text); border-color: #5d76c2; }
+  .btn-outline:hover { background: rgba(255,255,255,0.05); }
+  .btn[disabled] { opacity: .55; cursor: not-allowed; filter: saturate(.7); }
+
+  .status { display: grid; gap: 4px; }
+  .status-text { color: var(--muted); font-size: var(--font-small); min-height: 14px; }
+
+  /* Slim progress bar */
+  .progress {
+    height: 6px;
+    background: #2b3e66;
+    border: 1px solid var(--border);
+    border-radius: 99px;
+    overflow: hidden;
+    inline-size: 100%;
+  }
+  .progress-bar {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #5c83ca, #3db067);
+    transition: width 1s ease;
+  }
+
+  .output { display: grid; gap: 4px; }
+  .output-label { font-size: var(--font-small); color: var(--muted); }
+  .output-pre {
+    white-space: pre-wrap;
+    word-wrap:break-word;
+    overflow-y:auto;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: var(--pad);
+    border-radius: var(--radius);
+    max-height: 220px;   /* shorter */
+    overflow: auto;
+    font-size: var(--font);
+    line-height: 1.4;
+    font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell,
+     'Open Sans', 'Helvetica Neue', sans-serif,'Nirmala UI','Kohinoor Devanagari','Noto Sans Devanagari',
+     'Noto Naskh Arabic','Noto Sans Arabic','Arial';
+    letter-spacing: normal;
+    word-spacing: normal;
+    scrollbar-width: thin;
+    scrollbar-color: var(--brand-ink)var(--surface);
+
+  }
+  .output-pre::-webkit-scrollbar{width: 8px;}
+
+  /* When space allows (~≥340px), place search+dropdown side by side and buttons in a row */
+  @media (min-width: 340px) {
+    .lang-row { grid-template-columns: 1fr 1fr; }
+    .actions  { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  /* 1) Round the popup edges and add a layered glow */
+.container {
+  position: relative;
+  inline-size: 320px;        /* fixed compact width */
+  max-height: 600px;         /* Chrome popup limit */
+  padding: 10px;
+  display: grid;
+  gap: var(--gap);                    /* enable pseudo-element positioning */
+  border-radius: 16px;                   /* curved edges */
+  overflow: clip;                        /* clip inner corners cleanly */
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.06),    /* hairline edge */
+    0 12px 30px rgba(0,0,0,0.55),        /* depth shadow */
+    0 0 36px 12px rgba(79,140,255,0.18); /* outer glow backlight */
+}
+
+Extra halo “backlight” behind the popup using a blurred gradient */
+.container::before {
+  content: "";
+  position: absolute;
+  inset: -20px;                          /* extend beyond edges for glow */
+  border-radius: inherit;                /* match curved corners */
+  background:
+    radial-gradient(60% 45% at 50% 0%,   rgba(35, 79, 161, 0.3), transparent 60%),
+    radial-gradient(50% 40% at 0% 100%,  rgba(39, 100, 62, 0.22),  transparent 60%),
+    radial-gradient(50% 40% at 100% 100%,rgba(100, 42, 233, 0.22), transparent 60%);
+  filter: blur(22px);                    /* soften the backlight */
+  z-index: -1;                           /* sit behind content */
+  pointer-events: none;                  /* ignore clicks */
+}
+
+/* Optional: slightly round inner cards for a cohesive look */
+.controls, .output-pre, .status, .progress {
+  border-radius: 12px;                   /* gentler inner curvature */
+}
+
+  </style>
+
+  <section class="controls">
+    <!-- Compact language search + dropdown -->
+    <div class="lang-picker">
+      <label class="output-label" for="langSearch">Language</label>
+      <div class="lang-row">
+        <input id="langSearch" class="input" type="search" placeholder="Summarize and Translate in&hellip;" autocomplete="off" />
+        <select id="langSelect" class="select" aria-label="Target language">
+          <option value="en">English</option>
+          <option value="hi">Hindi</option>
+          <option value="es">Spanish</option>
+          <option value="fr">French</option>
+          <option value="de">German</option>
+          <option value="ru">Russian</option>
+          <option value="ar" data-rtl="true">Arabic</option>
+          <option value="bn">Bengali</option>
+          <option value="zh-CN">Chinese (Simplified)</option>
+          <option value="zh-TW">Chinese (Traditional)</option>
+          <option value="ja">Japanese</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button id="summarize" class="btn btn-primary">Summarize Selection</button>
+      <button id="copy" class="btn btn-tonal" disabled>Copy</button>
+      <button id="clear" class="btn btn-outline">Clear</button>
+    </div>
+  </section>
+
+  <section class="status">
+    <div id="status" class="status-text" aria-live="polite">Ready</div>
+    <div class="progress" hidden>
+      <div class="progress-bar" id="progressBar" style="width:0%"></div>
+    </div>
+  </section>
+
+  <section class="output">
+    <label class="output-label" for="output">Result</label>
+    <pre id="output" class="output-pre" tabindex="0"></pre>
+  </section>
+
+  <!-- At end of popup.html body -->
+  <script src="popup.js" defer></script>
+</div>
