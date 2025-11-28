@@ -52,3 +52,5 @@ T0 is a Chrome extension that summarizes and translates text entirely offline us
 
 - Very long text may take additional processing time.
 - Translation accuracy may vary depending on context.
+
+### p.s. Made using AI Majorly for fun and as a test.
