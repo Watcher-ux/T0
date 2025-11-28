@@ -33,15 +33,6 @@ T0 is a Chrome extension that summarizes and translates text entirely offline us
    - Translate with T0
 3. View the output in the popup panel.
 
-## File Structure
-
-T0/
-├── manifest.json
-├── background.js
-├── popup.html
-├── popup.js
-└── popup.css
-
 ## Supported Languages
 
 - English
